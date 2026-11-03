@@ -1,0 +1,57 @@
+# EARS-RL Mock Actuator Bench Configuration
+# For development, automated tests, and synthetic data generation without physical hardware.
+
+experiment_id: "bench_mock_001"
+description: "Single-axis hybrid stepper-encoder bench test in mock simulation mode"
+
+safety:
+  hardware_enabled: false
+  motion_enabled_on_startup: false
+  watchdog_timeout_ms: 500.0
+  require_limits_verified: false
+  max_position_error_rad: 0.35
+
+data:
+  data_dir: "./datasets"
+  experiments_dir: "./experiments"
+  checkpoints_dir: "./checkpoints"
+  reports_dir: "./reports"
+  log_format: "csv"
+  buffer_size: 100
+  flush_interval_s: 1.0
+
+actuators:
+  - joint_id: "mock_joint_0"
+    actuator_type: "stepper"
+    position_min_rad: -3.14159
+    position_max_rad: 3.14159
+    velocity_max_rad_s: 6.28
+    acceleration_max_rad_s2: 30.0
+    steps_per_revolution: 200
+    microstep_resolution: 16
+    gear_ratio: 1.0
+    limits_verified: true
+    enabled: true
+
+encoders:
+  - encoder_id: "mock_joint_0_enc"
+    encoder_type: "motor_encoder"
+    resolution_counts_per_rev: 4096
+    joint_id: "mock_joint_0"
+
+imu:
+  imu_id: "mock_imu_0"
+  sample_rate_hz: 200.0
+  has_fusion: false
+
+communication:
+  serial_port: null
+  baudrate: 921600
+  timeout_ms: 100.0
+
+software_version: "0.1.0"
+tags:
+  - "mock"
+  - "synthetic"
+  - "single_axis"
+notes: "Safe mock configuration for CPU-only testing."

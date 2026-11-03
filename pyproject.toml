@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ears-rl"
+version = "0.1.0"
+description = "Event-Aware Risk-Sensitive Reinforcement Learning for Low-Cost Hybrid-Actuated Biped Robots under Step Loss and Control Latency"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "EARS-RL Research Team" }
+]
+keywords = [
+    "reinforcement-learning",
+    "robotics",
+    "actuator-modeling",
+    "system-identification",
+    "sim-to-real",
+    "step-loss",
+    "latency"
+]
+dependencies = [
+    "numpy>=1.26.0",
+    "pandas>=2.1.0",
+    "pydantic>=2.5.0",
+    "pyyaml>=6.0",
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "matplotlib>=3.8.0",
+    "scipy>=1.11.0",  # BSD-3-Clause: Bounded optimization & Grey-Box SysID (FOPDT)
+]
+
+[project.optional-dependencies]
+torch = [
+    "torch>=2.1.0",
+]
+hardware = [
+    "pyserial>=3.5",
+]
+isaac = [
+    # NVIDIA Isaac Lab / Isaac Sim are installed into specialized environments.
+    # See docs/installation.md for Isaac Lab integration instructions.
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.3.0",
+    "mypy>=1.8.0",
+]
+all = [
+    "ears-rl[torch,hardware,dev]",
+]
+
+[project.scripts]
+ears-rl = "ears_rl.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "safety: Safety-critical constraint verification tests",
+    "hardware: Tests requiring physical hardware (deselected by default)",
+    "isaac: Tests requiring NVIDIA Isaac Sim/Lab (deselected by default)",
+]
+addopts = "-m 'not hardware and not isaac'"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = [
+    "E501",  # Line length is advisory in research code
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+ignore_missing_imports = true

@@ -1,0 +1,4 @@
+# EARS-RL System-Wide Configuration
+log_level: "INFO"
+data_dir: "./datasets"
+hardware_mode: "disabled"  # Mandatory safety invariant

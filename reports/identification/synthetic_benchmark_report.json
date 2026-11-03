@@ -1,0 +1,876 @@
+{
+  "benchmark_version": "1.2.0",
+  "random_seed": 42,
+  "data_source": "synthetic",
+  "provenance": "SyntheticActuatorBenchmarkGenerator",
+  "cases": {
+    "case_a_pure_delay": {
+      "ground_truth": {
+        "case_id": "case_a_pure_delay",
+        "description": "Pure Transport Delay without dynamics",
+        "gain": 1.0,
+        "tau_s": 0.0001,
+        "dead_time_s": 0.03,
+        "velocity_max_rad_s": null,
+        "noise_std_rad": 0.0,
+        "is_informative_excitation": true,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "chirp",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.016,
+            "held_out_rmse_rad": 0.11314,
+            "held_out_max_error_rad": 0.8
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_delay_ms": 40.0,
+            "identified_apparent_delay_ms": 40.0,
+            "identified_dead_time_ms": null,
+            "delay_type": "apparent_lumped_delay",
+            "note": "Fixed-delay model identifies lumped apparent phase lag (theta + tau), not isolated pure dead time.",
+            "sample_period_ms": 10.0,
+            "best_shift_steps": 4,
+            "residual_rmse_rad": 1.4821483875836086e-18,
+            "nominal_rmse_rad": 0.26531882989741884,
+            "rmse_reduction_rad": 0.26531882989741884,
+            "estimator_method": "cross_correlation_grid_search"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.016,
+            "held_out_rmse_rad": 0.11314,
+            "held_out_max_error_rad": 0.8
+          },
+          "identified_apparent_delay_ms": 40.0
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0508,
+            "identified_time_constant_s": 0.03642,
+            "identified_time_constant_ms": 36.42,
+            "nominal_rmse_rad": 0.26532,
+            "residual_rmse_rad": 0.0262,
+            "rmse_reduction_rad": 0.23912,
+            "sample_period_ms": 10.0,
+            "estimator_method": "first_order_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02595,
+            "held_out_rmse_rad": 0.05654,
+            "held_out_max_error_rad": 0.47183
+          }
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.001,
+            "identified_time_constant_ms": 1.0,
+            "identified_dead_time_s": 0.03,
+            "identified_dead_time_ms": 30.0,
+            "identified_apparent_delay_ms": 31.0,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.26532,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.26532,
+            "structural_mismatch": false,
+            "structural_mismatch_warning": null,
+            "estimator_method": "fopdt_two_stage_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0,
+            "held_out_rmse_rad": 0.0,
+            "held_out_max_error_rad": 4e-05
+          },
+          "parameter_recovery": {
+            "gain_error": 0.0,
+            "tau_error_s": 0.0009,
+            "tau_error_ms": 0.9,
+            "dead_time_error_s": 0.0,
+            "dead_time_error_ms": 0.0
+          }
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "model_type": "fopdt_rate_limited",
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.001,
+            "identified_time_constant_ms": 1.0,
+            "identified_dead_time_s": 0.03,
+            "identified_dead_time_ms": 30.0,
+            "identified_apparent_delay_ms": 31.0,
+            "identified_velocity_max_rad_s": 15.0774,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.26532,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.26532,
+            "linear_fopdt_residual_rmse_rad": 0.0,
+            "estimator_method": "fopdt_rate_limited_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.00869,
+            "held_out_rmse_rad": 0.06448,
+            "held_out_max_error_rad": 0.64919
+          }
+        }
+      }
+    },
+    "case_b_first_order": {
+      "ground_truth": {
+        "case_id": "case_b_first_order",
+        "description": "First-Order Lag without Dead Time",
+        "gain": 1.0,
+        "tau_s": 0.05,
+        "dead_time_s": 0.0,
+        "velocity_max_rad_s": null,
+        "noise_std_rad": 0.0,
+        "is_informative_excitation": true,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "chirp",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02207,
+            "held_out_rmse_rad": 0.09852,
+            "held_out_max_error_rad": 0.8
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_delay_ms": 50.0,
+            "identified_apparent_delay_ms": 50.0,
+            "identified_dead_time_ms": null,
+            "delay_type": "apparent_lumped_delay",
+            "note": "Fixed-delay model identifies lumped apparent phase lag (theta + tau), not isolated pure dead time.",
+            "sample_period_ms": 10.0,
+            "best_shift_steps": 5,
+            "residual_rmse_rad": 0.0704684359078067,
+            "nominal_rmse_rad": 0.31474975869571725,
+            "rmse_reduction_rad": 0.24428132278791054,
+            "estimator_method": "cross_correlation_grid_search"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02207,
+            "held_out_rmse_rad": 0.09852,
+            "held_out_max_error_rad": 0.8
+          },
+          "identified_apparent_delay_ms": 50.0
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.05,
+            "identified_time_constant_ms": 50.0,
+            "nominal_rmse_rad": 0.31475,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.31475,
+            "sample_period_ms": 10.0,
+            "estimator_method": "first_order_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0,
+            "held_out_rmse_rad": 0.0,
+            "held_out_max_error_rad": 0.0
+          }
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.05,
+            "identified_time_constant_ms": 50.0,
+            "identified_dead_time_s": 0.0,
+            "identified_dead_time_ms": 0.0,
+            "identified_apparent_delay_ms": 50.0,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.31475,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.31475,
+            "structural_mismatch": false,
+            "structural_mismatch_warning": null,
+            "estimator_method": "fopdt_two_stage_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0,
+            "held_out_rmse_rad": 0.0,
+            "held_out_max_error_rad": 0.0
+          },
+          "parameter_recovery": {
+            "gain_error": 0.0,
+            "tau_error_s": 0.0,
+            "tau_error_ms": 0.0,
+            "dead_time_error_s": 0.0,
+            "dead_time_error_ms": 0.0
+          }
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "model_type": "fopdt_rate_limited",
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.05,
+            "identified_time_constant_ms": 50.0,
+            "identified_dead_time_s": 0.0,
+            "identified_dead_time_ms": 0.0,
+            "identified_apparent_delay_ms": 50.0,
+            "identified_velocity_max_rad_s": 12.1624,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.31475,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.31475,
+            "linear_fopdt_residual_rmse_rad": 0.0,
+            "estimator_method": "fopdt_rate_limited_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.00068,
+            "held_out_rmse_rad": 0.00302,
+            "held_out_max_error_rad": 0.02339
+          }
+        }
+      }
+    },
+    "case_c_fopdt_standard": {
+      "ground_truth": {
+        "case_id": "case_c_fopdt_standard",
+        "description": "Standard FOPDT with distinct delay and lag",
+        "gain": 1.0,
+        "tau_s": 0.04,
+        "dead_time_s": 0.02,
+        "velocity_max_rad_s": null,
+        "noise_std_rad": 0.0,
+        "is_informative_excitation": true,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "chirp",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02608,
+            "held_out_rmse_rad": 0.12055,
+            "held_out_max_error_rad": 0.8
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_delay_ms": 60.0,
+            "identified_apparent_delay_ms": 60.0,
+            "identified_dead_time_ms": null,
+            "delay_type": "apparent_lumped_delay",
+            "note": "Fixed-delay model identifies lumped apparent phase lag (theta + tau), not isolated pure dead time.",
+            "sample_period_ms": 10.0,
+            "best_shift_steps": 6,
+            "residual_rmse_rad": 0.04995415075640053,
+            "nominal_rmse_rad": 0.3883293819721678,
+            "rmse_reduction_rad": 0.3383752312157673,
+            "estimator_method": "cross_correlation_grid_search"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02608,
+            "held_out_rmse_rad": 0.12055,
+            "held_out_max_error_rad": 0.8
+          },
+          "identified_apparent_delay_ms": 60.0
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.073,
+            "identified_time_constant_s": 0.06448,
+            "identified_time_constant_ms": 64.48,
+            "nominal_rmse_rad": 0.38833,
+            "residual_rmse_rad": 0.03731,
+            "rmse_reduction_rad": 0.35102,
+            "sample_period_ms": 10.0,
+            "estimator_method": "first_order_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02612,
+            "held_out_rmse_rad": 0.04175,
+            "held_out_max_error_rad": 0.22892
+          }
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.04,
+            "identified_time_constant_ms": 40.0,
+            "identified_dead_time_s": 0.02,
+            "identified_dead_time_ms": 20.0,
+            "identified_apparent_delay_ms": 60.0,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.38833,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.38833,
+            "structural_mismatch": false,
+            "structural_mismatch_warning": null,
+            "estimator_method": "fopdt_two_stage_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0,
+            "held_out_rmse_rad": 0.0,
+            "held_out_max_error_rad": 0.0
+          },
+          "parameter_recovery": {
+            "gain_error": 0.0,
+            "tau_error_s": 0.0,
+            "tau_error_ms": 0.0,
+            "dead_time_error_s": 0.0,
+            "dead_time_error_ms": 0.0
+          }
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "model_type": "fopdt_rate_limited",
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.04,
+            "identified_time_constant_ms": 40.0,
+            "identified_dead_time_s": 0.02,
+            "identified_dead_time_ms": 20.0,
+            "identified_apparent_delay_ms": 60.0,
+            "identified_velocity_max_rad_s": 12.9862,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.38833,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.38833,
+            "linear_fopdt_residual_rmse_rad": 0.0,
+            "estimator_method": "fopdt_rate_limited_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.00148,
+            "held_out_rmse_rad": 0.00704,
+            "held_out_max_error_rad": 0.05505
+          }
+        }
+      }
+    },
+    "case_d_fopdt_rate_limited": {
+      "ground_truth": {
+        "case_id": "case_d_fopdt_rate_limited",
+        "description": "FOPDT with Velocity Rate Limiting",
+        "gain": 1.0,
+        "tau_s": 0.04,
+        "dead_time_s": 0.02,
+        "velocity_max_rad_s": 2.0,
+        "noise_std_rad": 0.0,
+        "is_informative_excitation": true,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "chirp",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.09081,
+            "held_out_rmse_rad": 0.22517,
+            "held_out_max_error_rad": 0.8
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_delay_ms": 160.0,
+            "identified_apparent_delay_ms": 160.0,
+            "identified_dead_time_ms": null,
+            "delay_type": "apparent_lumped_delay",
+            "note": "Fixed-delay model identifies lumped apparent phase lag (theta + tau), not isolated pure dead time.",
+            "sample_period_ms": 10.0,
+            "best_shift_steps": 16,
+            "residual_rmse_rad": 0.46568432236008234,
+            "nominal_rmse_rad": 0.6415429823434875,
+            "rmse_reduction_rad": 0.17585865998340516,
+            "estimator_method": "cross_correlation_grid_search"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.09081,
+            "held_out_rmse_rad": 0.22517,
+            "held_out_max_error_rad": 0.8
+          },
+          "identified_apparent_delay_ms": 160.0
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.7781,
+            "identified_time_constant_s": 0.5326,
+            "identified_time_constant_ms": 532.6,
+            "nominal_rmse_rad": 0.64154,
+            "residual_rmse_rad": 0.11655,
+            "rmse_reduction_rad": 0.525,
+            "sample_period_ms": 10.0,
+            "estimator_method": "first_order_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.07817,
+            "held_out_rmse_rad": 0.14158,
+            "held_out_max_error_rad": 0.4008
+          }
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.7781,
+            "identified_time_constant_s": 0.5326,
+            "identified_time_constant_ms": 532.6,
+            "identified_dead_time_s": 0.0,
+            "identified_dead_time_ms": 0.0,
+            "identified_apparent_delay_ms": 532.6,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.64154,
+            "residual_rmse_rad": 0.11655,
+            "rmse_reduction_rad": 0.525,
+            "structural_mismatch": true,
+            "structural_mismatch_warning": "Actuator exhibits velocity saturation plateau at ~2.00 rad/s. Linear FOPDT cannot capture rate limiting without parameter distortion.",
+            "estimator_method": "fopdt_two_stage_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.07817,
+            "held_out_rmse_rad": 0.14158,
+            "held_out_max_error_rad": 0.4008
+          },
+          "parameter_recovery": {
+            "gain_error": 0.7781,
+            "tau_error_s": 0.4926,
+            "tau_error_ms": 492.6,
+            "dead_time_error_s": 0.02,
+            "dead_time_error_ms": 20.0
+          }
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "model_type": "fopdt_rate_limited",
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.04,
+            "identified_time_constant_ms": 40.0,
+            "identified_dead_time_s": 0.02,
+            "identified_dead_time_ms": 20.0,
+            "identified_apparent_delay_ms": 60.0,
+            "identified_velocity_max_rad_s": 2.0,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.64154,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.64154,
+            "linear_fopdt_residual_rmse_rad": 0.11655,
+            "estimator_method": "fopdt_rate_limited_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0,
+            "held_out_rmse_rad": 0.0,
+            "held_out_max_error_rad": 0.0
+          }
+        }
+      }
+    },
+    "case_e_fopdt_noisy": {
+      "ground_truth": {
+        "case_id": "case_e_fopdt_noisy",
+        "description": "FOPDT with Measurement Noise",
+        "gain": 1.0,
+        "tau_s": 0.04,
+        "dead_time_s": 0.02,
+        "velocity_max_rad_s": null,
+        "noise_std_rad": 0.005,
+        "is_informative_excitation": true,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "chirp",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0293,
+            "held_out_rmse_rad": 0.12043,
+            "held_out_max_error_rad": 0.80767
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_delay_ms": 60.0,
+            "identified_apparent_delay_ms": 60.0,
+            "identified_dead_time_ms": null,
+            "delay_type": "apparent_lumped_delay",
+            "note": "Fixed-delay model identifies lumped apparent phase lag (theta + tau), not isolated pure dead time.",
+            "sample_period_ms": 10.0,
+            "best_shift_steps": 6,
+            "residual_rmse_rad": 0.04961076854685371,
+            "nominal_rmse_rad": 0.38806694261452757,
+            "rmse_reduction_rad": 0.33845617406767387,
+            "estimator_method": "cross_correlation_grid_search"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0293,
+            "held_out_rmse_rad": 0.12043,
+            "held_out_max_error_rad": 0.80767
+          },
+          "identified_apparent_delay_ms": 60.0
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0734,
+            "identified_time_constant_s": 0.06438,
+            "identified_time_constant_ms": 64.38,
+            "nominal_rmse_rad": 0.38807,
+            "residual_rmse_rad": 0.03764,
+            "rmse_reduction_rad": 0.35042,
+            "sample_period_ms": 10.0,
+            "estimator_method": "first_order_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02843,
+            "held_out_rmse_rad": 0.04227,
+            "held_out_max_error_rad": 0.22499
+          }
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 1.0002,
+            "identified_time_constant_s": 0.03982,
+            "identified_time_constant_ms": 39.82,
+            "identified_dead_time_s": 0.02007,
+            "identified_dead_time_ms": 20.07,
+            "identified_apparent_delay_ms": 59.9,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.38807,
+            "residual_rmse_rad": 0.00437,
+            "rmse_reduction_rad": 0.38369,
+            "structural_mismatch": false,
+            "structural_mismatch_warning": null,
+            "estimator_method": "fopdt_two_stage_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.00398,
+            "held_out_rmse_rad": 0.00506,
+            "held_out_max_error_rad": 0.01453
+          },
+          "parameter_recovery": {
+            "gain_error": 0.0002,
+            "tau_error_s": 0.00018,
+            "tau_error_ms": 0.18,
+            "dead_time_error_s": 7e-05,
+            "dead_time_error_ms": 0.07
+          }
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "model_type": "fopdt_rate_limited",
+            "identified_gain": 1.0002,
+            "identified_time_constant_s": 0.03982,
+            "identified_time_constant_ms": 39.82,
+            "identified_dead_time_s": 0.02008,
+            "identified_dead_time_ms": 20.08,
+            "identified_apparent_delay_ms": 59.9,
+            "identified_velocity_max_rad_s": 13.1778,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.38807,
+            "residual_rmse_rad": 0.00437,
+            "rmse_reduction_rad": 0.38369,
+            "linear_fopdt_residual_rmse_rad": 0.00437,
+            "estimator_method": "fopdt_rate_limited_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0052,
+            "held_out_rmse_rad": 0.00833,
+            "held_out_max_error_rad": 0.05091
+          }
+        }
+      }
+    },
+    "case_f_saturation": {
+      "ground_truth": {
+        "case_id": "case_f_saturation",
+        "description": "Severe Velocity Saturation",
+        "gain": 1.0,
+        "tau_s": 0.03,
+        "dead_time_s": 0.015,
+        "velocity_max_rad_s": 1.0,
+        "noise_std_rad": 0.0,
+        "is_informative_excitation": true,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "chirp",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.16623,
+            "held_out_rmse_rad": 0.30024,
+            "held_out_max_error_rad": 0.8
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_delay_ms": 210.0,
+            "identified_apparent_delay_ms": 210.0,
+            "identified_dead_time_ms": null,
+            "delay_type": "apparent_lumped_delay",
+            "note": "Fixed-delay model identifies lumped apparent phase lag (theta + tau), not isolated pure dead time.",
+            "sample_period_ms": 10.0,
+            "best_shift_steps": 21,
+            "residual_rmse_rad": 0.5573382105052193,
+            "nominal_rmse_rad": 0.681164466208808,
+            "rmse_reduction_rad": 0.12382625570358874,
+            "estimator_method": "cross_correlation_grid_search"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.16623,
+            "held_out_rmse_rad": 0.30024,
+            "held_out_max_error_rad": 0.8
+          },
+          "identified_apparent_delay_ms": 210.0
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 2.0,
+            "identified_time_constant_s": 1.0,
+            "identified_time_constant_ms": 1000.0,
+            "nominal_rmse_rad": 0.68116,
+            "residual_rmse_rad": 0.08044,
+            "rmse_reduction_rad": 0.60073,
+            "sample_period_ms": 10.0,
+            "estimator_method": "first_order_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.058,
+            "held_out_rmse_rad": 0.08631,
+            "held_out_max_error_rad": 0.2055
+          }
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "identified_gain": 2.0,
+            "identified_time_constant_s": 1.0,
+            "identified_time_constant_ms": 1000.0,
+            "identified_dead_time_s": 0.0,
+            "identified_dead_time_ms": 0.0,
+            "identified_apparent_delay_ms": 1000.0,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.68116,
+            "residual_rmse_rad": 0.08044,
+            "rmse_reduction_rad": 0.60073,
+            "structural_mismatch": true,
+            "structural_mismatch_warning": "Actuator exhibits velocity saturation plateau at ~1.00 rad/s. Linear FOPDT cannot capture rate limiting without parameter distortion.",
+            "estimator_method": "fopdt_two_stage_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.058,
+            "held_out_rmse_rad": 0.08631,
+            "held_out_max_error_rad": 0.2055
+          },
+          "parameter_recovery": {
+            "gain_error": 1.0,
+            "tau_error_s": 0.97,
+            "tau_error_ms": 970.0,
+            "dead_time_error_s": 0.015,
+            "dead_time_error_ms": 15.0
+          }
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "fitted",
+            "is_identifiable": true,
+            "model_type": "fopdt_rate_limited",
+            "identified_gain": 1.0,
+            "identified_time_constant_s": 0.03,
+            "identified_time_constant_ms": 30.0,
+            "identified_dead_time_s": 0.015,
+            "identified_dead_time_ms": 15.0,
+            "identified_apparent_delay_ms": 45.0,
+            "identified_velocity_max_rad_s": 1.0,
+            "sample_period_ms": 10.0,
+            "nominal_rmse_rad": 0.68116,
+            "residual_rmse_rad": 0.0,
+            "rmse_reduction_rad": 0.68116,
+            "linear_fopdt_residual_rmse_rad": 0.08044,
+            "estimator_method": "fopdt_rate_limited_bounded_lbfgsb"
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.0,
+            "held_out_rmse_rad": 0.0,
+            "held_out_max_error_rad": 0.0
+          }
+        }
+      }
+    },
+    "case_g_uninformative": {
+      "ground_truth": {
+        "case_id": "case_g_uninformative",
+        "description": "Uninformative static excitation",
+        "gain": 1.0,
+        "tau_s": 0.04,
+        "dead_time_s": 0.02,
+        "velocity_max_rad_s": null,
+        "noise_std_rad": 0.0,
+        "is_informative_excitation": false,
+        "generator_version": "1.2.0"
+      },
+      "train_trajectory": "constant_uninformative",
+      "eval_trajectory": "step",
+      "sample_count_train": 200,
+      "sample_count_eval": 200,
+      "models": {
+        "nominal": {
+          "fit_metrics": {
+            "fit_loss": null,
+            "status": "not_applicable",
+            "message": "Nominal baseline model has no learnable parameters (zero-hypothesis baseline).",
+            "trainable_parameters": 0
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02608,
+            "held_out_rmse_rad": 0.12055,
+            "held_out_max_error_rad": 0.8
+          }
+        },
+        "fixed_delay": {
+          "fit_metrics": {
+            "status": "unidentifiable",
+            "error": "Insufficient excitation: command variance (0.00e+00 rad^2) is negligible.",
+            "is_identifiable": false,
+            "identified_delay_ms": null,
+            "identified_apparent_delay_ms": null,
+            "identified_dead_time_ms": null,
+            "residual_rmse_rad": null
+          },
+          "eval_metrics": {
+            "held_out_mae_rad": 0.02608,
+            "held_out_rmse_rad": 0.12055,
+            "held_out_max_error_rad": 0.8
+          },
+          "identified_apparent_delay_ms": null
+        },
+        "first_order": {
+          "fit_metrics": {
+            "status": "unidentifiable",
+            "error": "Insufficient excitation: command variance (0.00e+00 rad^2) is negligible.",
+            "is_identifiable": false,
+            "command_variance_rad2": 0.0,
+            "identified_gain": null,
+            "identified_time_constant_ms": null
+          },
+          "eval_metrics": null
+        },
+        "fopdt": {
+          "fit_metrics": {
+            "status": "unidentifiable",
+            "error": "Insufficient excitation: command variance (0.00e+00 rad^2) is negligible.",
+            "is_identifiable": false,
+            "command_variance_rad2": 0.0,
+            "identified_gain": null,
+            "identified_time_constant_ms": null,
+            "identified_dead_time_ms": null,
+            "identified_apparent_delay_ms": null
+          },
+          "eval_metrics": null,
+          "parameter_recovery": null
+        },
+        "fopdt_rate_limited": {
+          "fit_metrics": {
+            "status": "unidentifiable",
+            "error": "Insufficient excitation: command variance (0.00e+00 rad^2) is negligible.",
+            "is_identifiable": false,
+            "command_variance_rad2": 0.0,
+            "identified_gain": null,
+            "identified_time_constant_ms": null,
+            "identified_dead_time_ms": null,
+            "identified_apparent_delay_ms": null,
+            "identified_velocity_max_rad_s": null
+          },
+          "eval_metrics": null
+        }
+      }
+    }
+  }
+}

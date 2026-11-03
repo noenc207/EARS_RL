@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+
+# Pytest & Tools
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments & Host-Specific Local Config
+.env
+.mcp.json
+.venv/
+venv/
+ENV/
+
+# Private AI Agent & Skills Configuration (Local Only)
+.agents/
+.claude/
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+docs/AI_TOOLING.md
+scripts/verify_toolchain.py
+
+# OS and IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large Datasets and Checkpoints (Preserve READMEs)
+datasets/raw/
+datasets/processed/
+checkpoints/*.pt
+checkpoints/*.pth
+reports/*.png
+reports/*.pdf
+reports/*.xml
+reports/*_test/
+reports/commissioning_report.json
+reports/identification/identification_report.json
+
+# C / Firmware build outputs
+*.exe
+*.o
+*.obj
+build/
+firmware/esp32_s3/build/
+

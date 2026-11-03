@@ -1,0 +1,9 @@
+# EARS-RL System Identification Baseline Configuration
+model_type: "fixed_delay"
+input_dataset: null
+output_dir: "./reports/identification"
+train_split: 0.70
+val_split: 0.15
+test_split: 0.15
+random_seed: 42
+delay_ms_init: 10.0
